@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+       MYSQL_DATABASE: gameshare_dev_db
+       MYSQL_PASSWORD: gameshare_dev_admin
+       MYSQL_ROOT_PASSWORD: gameshare_dev_admin
+    volumes:
+      - db_data:/var/lib/mysql:rw
+      - ./mysql-dump:/docker-entrypoint-initdb.d:rw
+    restart: unless-stopped
+  web:
+    build: .
+    volumes:
+      - .:/code:rw
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
+volumes:
+  db_data:
