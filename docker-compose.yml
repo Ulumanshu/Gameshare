@@ -4,9 +4,9 @@ services:
   mysql:
     image: mysql:5.7
     environment:
-       MYSQL_DATABASE: gameshare_dev_db
-       MYSQL_PASSWORD: gameshare_dev_admin
-       MYSQL_ROOT_PASSWORD: gameshare_dev_admin
+       MYSQL_DATABASE: aukse_dev_db
+       MYSQL_PASSWORD: aukse_dev_admin
+       MYSQL_ROOT_PASSWORD: aukse_dev_admin
     volumes:
       - db_data:/var/lib/mysql:rw
       - ./mysql-dump:/docker-entrypoint-initdb.d:rw
