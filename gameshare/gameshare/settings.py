@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'games.apps.GamesConfig',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +84,16 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'gameshare_dev_db',
+#         'USER': 'root',
+#         'PASSWORD': 'gameshare_dev_admin',
+#         'HOST': "127.0.0.1",  # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
