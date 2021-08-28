@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="wrapper">
+<header>Game Share App</header>
+<form action='/addGameItem/' method="post">
+    {% csrf_token %}
+    <div class="inputField">
+      <input type="text" name="content" placeholder="Add your new game" class="disabled">
+      <input type="submit" value="+" class="btn btn-success add disabled">
+      <input type="text" name="content" placeholder="Add your new game">
+        <input type="submit" value="+" class="btn btn-success add ">
+    </div>
+</form>
+
+    <ul class="GamesList">
+       {% for i in all_games %}
+
+        <li>{{ i.name }} </li>
+        <form action="/deleteGameItem/{{i.id}}/" method="post">
+          {% csrf_token %}
+            <input type="submit" value="X" class="btn btn-danger delete">
+          </form>
+    {% endfor %}
+    </ul>
+
+
+    <div class="footer">
+      <span>You have <span class="pendingTasks">{{ games_count }}</span> Games</span>
+
+    </div>
+  </div>
+{% endblock %}
