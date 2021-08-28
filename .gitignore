@@ -9,6 +9,12 @@ __pycache__/
 # Pycharm files
 .idea/
 
+# Project Image Files
+img/
+
+# Migration Files
+[Mm]igrations/
+
 # Project database dump dir
 mysql-dump/*
 

@@ -1,15 +1,15 @@
 version: '3.7'
 
 services:
-  mysql:
-    image: mysql:5.7
+  game_postgres:
+    image: postgres:12.0-alpine
     environment:
-       MYSQL_DATABASE: gameshare_dev_db
-       MYSQL_PASSWORD: gameshare_dev_admin
-       MYSQL_ROOT_PASSWORD: gameshare_dev_admin
+       POSTGRES_USER: gameshare_app
+       POSTGRES_PASSWORD: gameshare_dev_admin
+       POSTGRES_DB: gameshare_dev_db
+       PGDATA: /var/lib/postgresql/data/gameshare/
     volumes:
-      - db_data:/var/lib/mysql:rw
-      - ./mysql-dump:/docker-entrypoint-initdb.d:rw
+      - game_db_data:/var/lib/postgresql/data/gameshare:rw
     restart: unless-stopped
   web:
     build: .
@@ -18,8 +18,8 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - mysql
+      - game_postgres
     restart: unless-stopped
 
 volumes:
-  db_data:
+  game_db_data:

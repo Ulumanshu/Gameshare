@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'games.apps.GamesConfig',
 ]
 
 MIDDLEWARE = [
@@ -74,12 +75,12 @@ WSGI_APPLICATION = 'gameshare.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'gameshare_dev_db',
-        'USER': 'root',
+        'USER': 'gameshare_app',
         'PASSWORD': 'gameshare_dev_admin',
-        'HOST': "mysql",  # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        'HOST': "game_postgres",  # Or an IP Address that your DB is hosted on
+        'PORT': '5432',
     }
 }
 
