@@ -5,6 +5,8 @@ import os
 
 import flask
 from gevent.pywsgi import WSGIServer
+from hmac import HMAC, compare_digest
+from hashlib import sha1
 
 jsonify = flask.jsonify
 
@@ -13,18 +15,22 @@ app.debug = True
 ROOT = str(app.root_path)
 
 
-@app.route("/", methods=["POST"])
-def deploy_app():
-    script_path = ROOT + '/../' + 'deploy.sh'
+def verify_github_signature(req):
+    received_sign = req.headers.get('X-Hub-Signature').split('sha1=')[-1].strip()
     server_github_key = ''
     with open(ROOT + '/' + "github_webhook_key.json") as f:
         file = json.load(f)
         server_github_key = file.get("github_webhook_secret")
 
-    data = flask.request.get_json()
-    secret_key = data.get('secret_key', '') or ''
+    expected_sign = HMAC(key=server_github_key, msg=req.data, digestmod=sha1).hexdigest()
 
-    if secret_key == server_github_key:
+    return compare_digest(received_sign, expected_sign)
+
+
+@app.route("/", methods=["POST"])
+def deploy_app():
+    script_path = ROOT + '/../' + 'deploy.sh'
+    if verify_github_signature(flask.request):
         try:
             os.system(script_path)
 
@@ -42,7 +48,7 @@ def deploy_app():
     else:
         return jsonify(
             success=False,
-            error='Webhook key %s is wrong' % secret_key,
+            error='Webhook signature is wrong',
         )
 
 
