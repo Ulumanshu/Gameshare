@@ -1,0 +1,12 @@
+[Unit]
+Description=Gameshare App Deploy Bot
+After=network.target
+
+[Service]
+User=gameshare
+WorkingDirectory=/home/gameshare/Gameshare/deploy_bot
+ExecStart=/home/gameshare/Gameshare/deploy_bot/bot_venv/bin/python /home/gameshare/Gameshare/deploy_bot/deploy_bot.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
