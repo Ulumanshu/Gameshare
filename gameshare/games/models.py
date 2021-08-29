@@ -21,7 +21,7 @@ STATUS = (
 
 
 class Games(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, default="")
     photo = models.ImageField(upload_to='img', default=False)
     author = models.CharField(max_length=200)
     description = models.TextField()
@@ -33,6 +33,7 @@ class Games(models.Model):
 
 
 class Items(models.Model):
+    name = models.CharField(max_length=200, default="")
     game_id = models.ForeignKey(Games, related_name='game_item_ids', on_delete=models.CASCADE)
     owner_id = models.ForeignKey(User, related_name='item_ids', on_delete=models.CASCADE)
     rentee_id = models.ForeignKey(
