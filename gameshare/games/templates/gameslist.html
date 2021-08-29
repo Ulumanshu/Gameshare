@@ -12,10 +12,9 @@
         <input type="submit" value="+" class="btn btn-success add ">
     </div>
 </form>
-
+    <h1>{{ all_games }}</h1>
     <ul class="GamesList">
        {% for i in all_games %}
-
         <li>{{ i.name }} </li>
         <form action="/deleteGameItem/{{i.id}}/" method="post">
           {% csrf_token %}
