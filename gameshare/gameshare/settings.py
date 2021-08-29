@@ -25,7 +25,7 @@ SECRET_KEY = 'td!phw#3=_1w2zkzp_qat+nv(!0ml2i-care#-_0k$@6*15&v8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'kx60.l.dedikuoti.lt']
 
 # Application definition
 
