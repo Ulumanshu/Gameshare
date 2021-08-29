@@ -22,7 +22,7 @@ def verify_github_signature(req):
         file = json.load(f)
         server_github_key = file.get("github_webhook_secret")
 
-    expected_sign = HMAC(key=server_github_key, msg=req.data, digestmod=sha1).hexdigest()
+    expected_sign = HMAC(key=server_github_key.encode(), msg=req.data, digestmod=sha1).hexdigest()
 
     return compare_digest(received_sign, expected_sign)
 
