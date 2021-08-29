@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Login</h5>
+           </div>
+          <div class="modal-body">
+            <div class="py-1">
+              <form class="form" method="post" action="{% url 'login' %}">
+              {% csrf_token %}
+                <div class="row">
+                  <div class="col">
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                            <label>User name</label>
+                         <input type="text" name="username" >
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                            <label>Password</label>
+                             <input type="password" name="password" >
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col d-flex justify-content-end">
+                    <button class="btn btn-primary" type="submit">Login</button>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock %}
