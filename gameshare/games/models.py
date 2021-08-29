@@ -33,6 +33,7 @@ class Games(models.Model):
 
 
 class Items(models.Model):
+    name = models.CharField(max_length=200, blank=True, null=True)
     game_id = models.ForeignKey(Games, related_name='game_item_ids', on_delete=models.CASCADE)
     owner_id = models.ForeignKey(User, related_name='item_ids', on_delete=models.CASCADE)
     rentee_id = models.ForeignKey(
