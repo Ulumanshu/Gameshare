@@ -24,7 +24,7 @@ class GamesListView(ListView):
 
 class ItemsListView(ListView):
     model = Items
-    template_name = "games/base.html"
+    template_name = "base.html"
 
     def get(self, request):
         all_items = Items.objects.all()
@@ -38,7 +38,7 @@ class ItemsListView(ListView):
             'all_items': all_items,
             'items_count': items_count,
         }
-        return render(request, 'games/itemslist.html', context=context)
+        return render(request, 'itemslist.html', context=context)
 
 
 class GameCreateView(LoginRequiredMixin, CreateView):
