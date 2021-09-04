@@ -15,6 +15,9 @@ img/
 # Migration Files
 [Mm]igrations/
 
+# .json files
+*.json
+
 # Project database dump dir
 mysql-dump/*
 

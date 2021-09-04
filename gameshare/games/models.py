@@ -21,7 +21,7 @@ STATUS = (
 
 
 class Games(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, default="")
     photo = models.ImageField(upload_to='img', default=False)
     author = models.CharField(max_length=200)
     description = models.TextField()

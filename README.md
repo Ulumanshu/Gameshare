@@ -5,5 +5,7 @@ Miroslav Add second
 docker exec -ti gameshare_web_1 bash  
 python manage.py createsuperuser
 
+Add deloy test 2
+
 
 
