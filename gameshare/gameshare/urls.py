@@ -24,5 +24,5 @@ urlpatterns = [
     path('login/', profile_login, name='login'),
     path('', ItemsListView.as_view(), name='items_list'),
     path('games/', include('games.urls')),
-    path('create/', GameCraeteView.as_view(), name='create_game'),
+    path('create/', GameCreateView.as_view(), name='create_game'),
 ]
