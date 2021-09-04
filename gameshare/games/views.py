@@ -61,7 +61,7 @@ class GameCreateView(LoginRequiredMixin, CreateView):
         if request.method == "POST":
             form = GameForm(data=request.POST)
             print('forma validi : ', form.is_valid())
-            form.save()
+            print('forma validi : ', form.errors)
             if form.is_valid():
                 form.save()
         return render(request, 'gameslist.html', context=context)

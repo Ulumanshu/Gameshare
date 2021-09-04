@@ -22,10 +22,10 @@ STATUS = (
 
 class Games(models.Model):
     name = models.CharField(max_length=200, default="")
-    photo = models.ImageField(upload_to='img', default=False)
+    photo = models.ImageField(upload_to='img', default=None, blank=True, null=True)
     author = models.CharField(max_length=200)
-    description = models.TextField()
-    pub_date = models.DateField()
+    description = models.TextField(default='', blank=True, null=True)
+    pub_date = models.DateField(default=False, blank=True, null=True)
     label = models.CharField(choices=LABLES1, default="TABLE", max_length=9)
 
     def __str__(self):
