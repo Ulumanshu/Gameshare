@@ -1,4 +1,5 @@
 from .models import Games, Items
+from .forms import GameForm
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
@@ -46,12 +47,28 @@ class GameCreateView(LoginRequiredMixin, CreateView):
     template_name = "creategame.html"
     fields = [
         'name',
+        'photo',
         'author',
-        'description ',
+        'description',
         'pub_date',
         'label',
     ]
-    success_url = "/list/"
+    # success_url = "/list/"
+
+    def post(self, request):
+        context = {}
+        print(request.POST)
+        if request.method == "POST":
+            form = GameForm(data=request.POST)
+            print('forma validi : ', form.is_valid())
+            form.save()
+            if form.is_valid():
+                form.save()
+        return render(request, 'gameslist.html', context=context)
+
+    def get(self, request):
+        context = {'form': GameForm}
+        return render(request, 'creategame.html', context=context)
 
 
 class GameUpdateView(PermissionRequiredMixin, UpdateView):

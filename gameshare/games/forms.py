@@ -1,7 +1,27 @@
 from django import forms
+from .models import Games, Items
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+
+class GameForm(forms.ModelForm):
+    class Meta:
+        model = Games
+        fields = ('name', 'photo', 'author', 'description', 'pub_date', 'label')
+
+    def is_valid(self):
+        return super(GameForm, self).is_valid()
+
+    # def clean_name(self):
+    #     text = self.cleaned_data.get('text')
+    #     badwords = ['fuck', 'kaka', 'audi']
+    #     check_list = [True if w in text else False for w in badwords]
+    #     # if title exists create slug from title
+    #     if True in check_list:
+    #         for word in badwords:
+    #             text = text.replace(word, '*' * len(word))
+
+    # return text
 
 class ProfileRegisterForm(UserCreationForm):
     email = forms.EmailField()
