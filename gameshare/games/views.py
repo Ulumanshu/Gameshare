@@ -25,10 +25,11 @@ class GamesListView(ListView):
 class ItemsListView(ListView):
     model = Items
     all_items = Items.objects.all()
-    #    items_count = Items.objects.count()
+    print('All items : ', all_items)
+    items_count = Items.objects.count()
     context = {
         'all_items': all_items,
-        #   'items_count': items_count,
+        'items_count': items_count,
     }
     template_name = "itemslist.html"
 
