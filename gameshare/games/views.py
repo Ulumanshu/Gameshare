@@ -59,12 +59,17 @@ class GameCreateView(LoginRequiredMixin, CreateView):
         context = {}
         print(request.POST)
         if request.method == "POST":
-            form = GameForm(data=request.POST)
+            form = GameForm(data=request.POST, files=request.FILES)
             print('forma validi : ', form.is_valid())
             print('forma validi : ', form.errors)
+            print(request.FILES)
             if form.is_valid():
+                print(form.cleaned_data['photo'])
                 form.save()
-        return render(request, 'gameslist.html', context=context)
+                return render(request, 'gameslist.html', context=context)
+            else:
+                context.update(form=GameForm)
+                return render(request, 'creategame.html', context=context)
 
     def get(self, request):
         context = {'form': GameForm}
