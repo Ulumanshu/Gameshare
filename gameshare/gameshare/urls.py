@@ -20,8 +20,8 @@ from games.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    path('register/', profile_register, name='register'),
+    path('login/', profile_login, name='login'),
+    path('/', ItemsListView.as_view(), name='items_list'),
     path('games/', include('games.urls')),
-    path('register/', profileregister, name='register'),
-    path('login/', profilelogin, name='login'),
-    path('list/', ItemsListView.as_view(), name='items_list'),
 ]

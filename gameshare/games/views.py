@@ -24,17 +24,24 @@ class GamesListView(ListView):
 
 class ItemsListView(ListView):
     model = Items
-    all_items = Items.objects.all()
-    print('All items : ', all_items)
-    items_count = Items.objects.count()
-    context = {
-        'all_items': all_items,
-        'items_count': items_count,
-    }
-    template_name = "itemslist.html"
+    template_name = "games/base.html"
+
+    def get(self, request):
+        all_items = Items.objects.all()
+        items_count = Items.objects.count()
+        # Render the HTML template passing data in the context.
+        # if self.request.user.is_authenticated:
+        #     posts = Items.objects.all().order_by('-published_date')
+        # else:
+        #     posts = Items.objects.filter(public=True).order_by('-published_date')
+        context = {
+            'all_items': all_items,
+            'items_count': items_count,
+        }
+        return render(request, 'games/itemslist.html', context=context)
 
 
-class GameCraeteView(LoginRequiredMixin, CreateView):
+class GameCreateView(LoginRequiredMixin, CreateView):
     model = GamesListView
     template_name = "creategame.html"
     fields = [
@@ -47,7 +54,7 @@ class GameCraeteView(LoginRequiredMixin, CreateView):
     success_url = "/list/"
 
 
-class GameListUpdate(PermissionRequiredMixin, UpdateView):
+class GameUpdateView(PermissionRequiredMixin, UpdateView):
     model = GamesListView
     template_name = "updategame.html"
     fields = [
@@ -60,7 +67,7 @@ class GameListUpdate(PermissionRequiredMixin, UpdateView):
     success_url = "/list/"
 
 
-class GameDeleteView(PermissionRequiredMixin,DeleteView):
+class GameDeleteView(PermissionRequiredMixin, DeleteView):
     model = GamesListView
     template_name = "deletegame.html"
     fields = [
@@ -73,7 +80,7 @@ class GameDeleteView(PermissionRequiredMixin,DeleteView):
     success_url = "/list/"
 
 
-def profileregister(request):
+def profile_register(request):
     form = ProfileRegisterForm()
     if request.method == 'POST':
         form = ProfileRegisterForm(request.POST)
@@ -85,7 +92,7 @@ def profileregister(request):
     return render(request, 'register.html', {'form': form})
 
 
-def profilelogin(request):
+def profile_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -101,6 +108,6 @@ def profilelogin(request):
     return render(request, 'login.html', {})
 
 
-def profilelogout(request):
+def profile_logout(request):
     logout(request)
     return HttpResponseRedirect('/login/')
