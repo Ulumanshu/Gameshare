@@ -1,28 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>ALL FINE ALL SUNNY</h1>
-    {% for game in all_items %}
+    {% for item in all_items %}
     <div class="card" style="width: 18rem; margin: 10px">
-    <img src="{{ game.photo }}" class="card-img-top" >
+        <h1>{{ item.game_id.photo }}</h1>
+    <img src="{{ item.game_id.photo }}" class="card-img-top" >
     <div class="card-body">
       <div style="display: flex; flex-direction: row">
-        <h5 class="card-title">{{ game.name }}</h5>
+        <h5 class="card-title">{{ item.name }}</h5>
         {#  Colored cirlce:#}
-        <div style="
-        {% if game.status == 'BUSY' or game.status == 'INACTIVE'%}
-          background: red;
-        {% else %}
-          background: green;
-        {% endif %}
-          width: 20px;
-          height: 20px;
-          margin-left: 10px;
-          border-radius: 50%;
-        "></div>
+
       </div>
-      <p class="card-text">{{ game.description }}</p>
-      <a href="/command/{{ game.id }}/view" class="btn btn-primary">View</a>
-      <a href="/command/{{ game.id }}/add" class="btn btn-primary">Add</a>
+      <p class="card-text">{{ item.description }}</p>
+      <a href="/command/{{ item.id }}/view" class="btn btn-primary">View</a>
+      <a href="/command/{{ item.id }}/add" class="btn btn-primary">Add</a>
     </div>
   </div>
 

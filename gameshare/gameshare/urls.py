@@ -16,7 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import include, path
+from django.conf import settings
+
 from games.views import *
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,3 +29,10 @@ urlpatterns = [
     path('games/', include('games.urls')),
     path('create/', GameCreateView.as_view(), name='create_game'),
 ]
+
+if bool(settings.DEBUG):
+    from django.conf.urls.static import static
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

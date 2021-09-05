@@ -8,6 +8,9 @@ from .forms import ProfileRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 
+from django.core.files.storage import Storage, default_storage
+
+
 
 # Create your views here.
 
@@ -63,6 +66,8 @@ class GameCreateView(LoginRequiredMixin, CreateView):
             print('forma validi : ', form.is_valid())
             print('forma validi : ', form.errors)
             print(request.FILES)
+            print("DEFAULT STORAGE: ", default_storage)
+
             if form.is_valid():
                 print(form.cleaned_data['photo'])
                 form.save()

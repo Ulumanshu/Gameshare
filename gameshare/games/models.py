@@ -1,8 +1,10 @@
 from django.db import models
+from django.core.files.storage import FileSystemStorage
+from gameshare.settings import MEDIA_ROOT
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
-
+upload_storage = FileSystemStorage(location=MEDIA_ROOT, base_url='')
 # Create your models here.
 
 LABLES1 = (
@@ -22,7 +24,7 @@ STATUS = (
 
 class Games(models.Model):
     name = models.CharField(max_length=200, default="")
-    photo = models.ImageField(upload_to='img', default=None, blank=True, null=True)
+    photo = models.ImageField(upload_to='media', storage=upload_storage, default=None, blank=True, null=True)
     author = models.CharField(max_length=200)
     description = models.TextField(default='', blank=True, null=True)
     pub_date = models.DateField(default=False, blank=True, null=True)
@@ -40,6 +42,8 @@ class Items(models.Model):
         User,
         related_name='rented_item_ids',
         on_delete=models.SET_NULL,
+        default=False,
+        blank=True,
         null=True,
     )
     status = models.CharField(choices=STATUS, default="NEW", max_length=9)

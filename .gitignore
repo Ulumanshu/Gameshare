@@ -10,7 +10,7 @@ __pycache__/
 .idea/
 
 # Project Image Files
-img/
+media/
 
 # Migration Files
 [Mm]igrations/
