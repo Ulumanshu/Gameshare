@@ -43,7 +43,7 @@ class ItemsListView(ListView):
 
 
 class GameCreateView(LoginRequiredMixin, CreateView):
-    model = GamesListView
+    model = Games
     template_name = "creategame.html"
     fields = [
         'name',
@@ -70,6 +70,7 @@ class GameCreateView(LoginRequiredMixin, CreateView):
             else:
                 context.update(form=GameForm)
                 return render(request, 'creategame.html', context=context)
+
 
     def get(self, request):
         context = {'form': GameForm}
