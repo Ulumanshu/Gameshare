@@ -4,7 +4,8 @@
 <div style="display: flex; flex-direction: row; flex-wrap: wrap">
     {% for item in all_items %}
     <div class="card" style="width: 18rem; margin: 10px">
-    <img src="{{ item.game_id.photo }}" class="card-img-top" >
+        <h1>{{ item.game_id.photo }}</h1>
+    <img src="{{media_URL}}{{ item.game_id.photo }}" class="card-img-top" >
     <div class="card-body">
       <div style="display: flex; flex-direction: row">
         <h5 class="card-title">{{ item.name }}</h5>

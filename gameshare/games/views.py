@@ -7,6 +7,10 @@ from django.views.generic import CreateView, UpdateView, ListView, DeleteView, F
 from .forms import ProfileRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
+
+from gameshare.settings import MEDIA_URL
+
+
 from django.core.files.storage import Storage, default_storage
 from django.shortcuts import render, redirect
 
@@ -16,10 +20,8 @@ from django.shortcuts import render, redirect
 class GamesListView(ListView):
     model = Games
     all_games = Games.objects.all()
-    #   games_count = GamesItems.objects.count()
     context = {
         'all_games': all_games,
-        #    'games_count': games_count,
     }
     template_name = "gameslistitems.html"
 
@@ -39,9 +41,9 @@ class ItemsListView(ListView):
         context = {
             'all_items': all_items,
             'items_count': items_count,
+            'media_URL': MEDIA_URL,
         }
         return render(request, 'itemslist.html', context=context)
-
 
 
 class ItemsControlerView(FormView):
@@ -64,13 +66,6 @@ class ItemsControlerView(FormView):
             }
             return render(request, 'item_form_view.html', context=context)
 
-
-
-        # Render the HTML template passing data in the context.
-        # if self.request.user.is_authenticated:
-        #     posts = Items.objects.all().order_by('-published_date')
-        # else:
-        #     posts = Items.objects.filter(public=True).order_by('-published_date')
         all_items = Items.objects.all()
         context = {
             'all_items': all_items,
@@ -109,7 +104,6 @@ class GameCreateView(LoginRequiredMixin, CreateView):
             else:
                 context.update(form=GameForm)
                 return render(request, 'creategame.html', context=context)
-
 
     def get(self, request):
         context = {'form': GameForm}
