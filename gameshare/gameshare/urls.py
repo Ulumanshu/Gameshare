@@ -28,6 +28,7 @@ urlpatterns = [
     path('', ItemsListView.as_view(), name='items_list'),
     path('games/', include('games.urls')),
     path('create/', GameCreateView.as_view(), name='create_game'),
+    path('command/<int:id_>/<str:cmd>', ItemsControlerView.as_view(), name='item_control'),
 ]
 
 if bool(settings.DEBUG):

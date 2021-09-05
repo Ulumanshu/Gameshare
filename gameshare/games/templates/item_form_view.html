@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <form class="form" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+  <fieldset disabled>
+    <legend>Disabled fieldset example</legend>
+    <div class="mb-3">
+        {{ form.name|as_crispy_field }}
+
+    </div>
+     <button type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>
+
+{% endblock %}

@@ -1,16 +1,14 @@
 from .models import Games, Items
-from .forms import GameForm
+from .forms import GameForm, ItemForm
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView, FormView
 from .forms import ProfileRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-
 from django.core.files.storage import Storage, default_storage
-
-
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
@@ -38,6 +36,42 @@ class ItemsListView(ListView):
         #     posts = Items.objects.all().order_by('-published_date')
         # else:
         #     posts = Items.objects.filter(public=True).order_by('-published_date')
+        context = {
+            'all_items': all_items,
+            'items_count': items_count,
+        }
+        return render(request, 'itemslist.html', context=context)
+
+
+
+class ItemsControlerView(FormView):
+    model = Items
+    template_name = "base.html"
+
+    def get(self, request, id_=None, cmd=''):
+
+        items_count = Items.objects.count()
+        print('urlo id ir cmd', id_, cmd)
+        if cmd == 'rent':
+            # pakeisti statusa
+            pass
+        elif cmd == 'view':
+            item = Items.objects.get(pk=id_)
+            form = ItemForm(instance=item)
+            context = {
+                'item': item,
+                'form': form,
+            }
+            return render(request, 'item_form_view.html', context=context)
+
+
+
+        # Render the HTML template passing data in the context.
+        # if self.request.user.is_authenticated:
+        #     posts = Items.objects.all().order_by('-published_date')
+        # else:
+        #     posts = Items.objects.filter(public=True).order_by('-published_date')
+        all_items = Items.objects.all()
         context = {
             'all_items': all_items,
             'items_count': items_count,
@@ -139,3 +173,5 @@ def profile_login(request):
 def profile_logout(request):
     logout(request)
     return HttpResponseRedirect('/login/')
+
+

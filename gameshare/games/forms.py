@@ -4,6 +4,24 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 
+class ItemForm(forms.ModelForm):
+    class Meta:
+        model = Items
+        fields = (
+            'name',
+            'game_id',
+            'owner_id',
+            'rentee_id',
+            'status',
+            'rent_price',
+            'date_rent_start',
+            'date_rent_end'
+        )
+
+    def is_valid(self):
+        return super(ItemForm, self).is_valid()
+
+
 class GameForm(forms.ModelForm):
     class Meta:
         model = Games

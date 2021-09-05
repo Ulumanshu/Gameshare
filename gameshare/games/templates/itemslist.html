@@ -1,22 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>ALL FINE ALL SUNNY</h1>
+
+<div style="display: flex; flex-direction: row; flex-wrap: wrap">
     {% for item in all_items %}
     <div class="card" style="width: 18rem; margin: 10px">
-        <h1>{{ item.game_id.photo }}</h1>
     <img src="{{ item.game_id.photo }}" class="card-img-top" >
     <div class="card-body">
       <div style="display: flex; flex-direction: row">
         <h5 class="card-title">{{ item.name }}</h5>
         {#  Colored cirlce:#}
-
+        <div style="
+        {% if item.status == 'BUSY' or item.status == 'INACTIVE'%}
+          background: red;
+        {% else %}
+          background: green;
+        {% endif %}
+          width: 20px;
+          height: 20px;
+          margin-left: 10px;
+          border-radius: 50%;
+        "></div>
       </div>
-      <p class="card-text">{{ item.description }}</p>
+      <p class="card-text">{{ game.description }}</p>
       <a href="/command/{{ item.id }}/view" class="btn btn-primary">View</a>
-      <a href="/command/{{ item.id }}/add" class="btn btn-primary">Add</a>
+      <a href="/command/{{ item.id }}/rent" class="btn btn-primary">Rent</a>
     </div>
   </div>
-
     {% endfor %}
+</div>
 {% endblock %}
 
